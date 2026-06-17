@@ -1,0 +1,158 @@
+@layer tokens, reset, layout, components, utilities;
+
+@layer tokens {
+    :root {
+        --clr-primary: #3b82f6;
+        --clr-background: #F0F0F0;
+        
+        font-family: 'Inter', sans-serif;
+        font-feature-settings: "liga" 1, "calt" 1; /* Enables ligatures and contextual alternates */
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --clr-background: #121212;
+            --clr-text: #f9fafb;
+            --clr-muted: #9ca3af;
+        }
+    }
+}
+/* 1. Low-specificity architecture (The 2026 Way) */
+@layer reset {
+
+  /* 2. Box-sizing ergonomics & logical property defaults */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /* 3. Remove default margins for structural elements */
+  body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
+    margin-block-end: 0; /* Uses logical properties over physical margin-bottom */
+    margin: 0;
+  }
+
+  /* 4. Core body setup (Accessible typography and height) */
+  body {
+    min-height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased; /* Better rendering on MacOS */
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* 5. Responsive, predictable media elements */
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+    height: auto; /* Maintains aspect ratio */
+  }
+
+  /* 6. Form elements inherit global typography */
+  input, button, textarea, select {
+    font: inherit;
+  }
+
+  /* 7. Text area UX fixes */
+  textarea {
+    resize: vertical;
+  }
+  textarea:not([rows]) {
+    min-height: 10em; /* Prevents teeny tiny text boxes */
+  }
+
+  /* 8. Modern typographic enhancements */
+  p {
+    text-wrap: pretty; /* Prevents awkward single-word orphans at paragraph ends */
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance; /* Evenly distributes multi-line headings */
+  }
+
+  /* 9. Unstyled lists stay unstyled only when structurally modified */
+  ul[class], ol[class] {
+    list-style: none;
+    padding: 0;
+  }
+
+  /* 10. Anchor tags inherit colors naturally */
+  a {
+    color: inherit;
+    /* text-decoration is left alone intentionally for default accessibility */
+  }
+
+  /* 11. Target anchoring layout fix */
+  :target {
+    scroll-margin-block: 5ex; /* Adds breathing room when anchoring to a section ID */
+  }
+
+  /* 12. Respect users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer layout {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@layer components {
+
+    .calc{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 750px;
+        min-height: 200px;
+        border: green solid 1px;
+    }
+
+    .calcDisplay {
+        width: 100%;
+        height: 50px;
+        border: red solid 2px;
+    }
+
+    .keys {
+        display: flex;
+        justify-content: center;
+        gap: 3px;
+    }
+
+    .digits {
+        display: grid;
+        grid-template-columns: repeat(3, 50px);
+        gap: 3px;
+    }
+
+    .operations {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        width: 25px;
+    }
+
+    li {
+        border: lightgray solid 1px;
+        text-align: center;
+    }
+
+    .digits li{
+        padding: 10px;
+    }
+
+
+}
