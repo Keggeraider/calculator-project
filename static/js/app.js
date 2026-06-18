@@ -69,15 +69,7 @@ buttons.forEach((button) => {
             result = null;
             display.textContent = calcDisplay;
         }
-        // display.textContent = calcDisplay;
-        console.log(e.target.parentNode.className);
-        console.log(e.target.id);
-        console.log(calcDisplay);
-        console.log(input);
-        console.log(operator);
-        console.log("a = ", a);
-        console.log("b = ", b);
-        console.log(result);
+
     });
 });
 
