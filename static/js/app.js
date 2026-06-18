@@ -7,7 +7,7 @@ let input = [];
 let a = null;
 let b = null;
 let calcDisplay = "";
-let operator = null;
+let operator = [];
 
 const display = document.querySelector('.calcDisplay');
 const buttons = document.querySelectorAll('button');
@@ -16,11 +16,11 @@ const operators = document.querySelectorAll('.operations button');
 buttons.forEach((button) => {
     button.addEventListener('click', (e) => {
         if (e.target.parentNode.className === "digits" && (e.target.id !== "ac" || e.target.id !== "compute")) {
-            calcDisplay = "";
             input.push(e.target.textContent);
             calcDisplay += e.target.textContent;
         } else if  (e.target.parentNode.className === "operators") {
             calcDisplay = e.target.textContent;
+            operator.push(e.target.textContent);
             if (a === null) {
                 a = input.shift();
                 while (input.length > 0) {
@@ -32,6 +32,8 @@ buttons.forEach((button) => {
                     b += input.shift()
                 }
             }
+        } else if (e.target.id === "compute") {
+
         }
         display.textContent = calcDisplay;
         console.log(e.target.parentNode.className);
