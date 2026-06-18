@@ -3,44 +3,45 @@ const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
-let newNum = 0;
-let operator = "";
+let input = [];
+let a = null;
+let b = null;
+let calcDisplay = "";
+let operator = null;
 
 const display = document.querySelector('.calcDisplay');
-const digits = document.querySelectorAll('.digits button');
+const buttons = document.querySelectorAll('button');
 const operators = document.querySelectorAll('.operations button');
 
-digits.forEach((button) => {
+buttons.forEach((button) => {
     button.addEventListener('click', (e) => {
-        console.log(e.target.textContent);
-        newNum = e.target.textContent;
-        display.textContent = newNum;
-        console.log("newNum = ", newNum);
+        if (e.target.parentNode.className === "digits" && (e.target.id !== "ac" || e.target.id !== "compute")) {
+            calcDisplay = "";
+            input.push(e.target.textContent);
+            calcDisplay += e.target.textContent;
+        } else if  (e.target.parentNode.className === "operators") {
+            calcDisplay = e.target.textContent;
+            if (a === null) {
+                a = input.shift();
+                while (input.length > 0) {
+                    a += input.shift();
+                }
+            } else if (b === null) {
+                b = input.shift();
+                while (input.length > 0) {
+                    b += input.shift()
+                }
+            }
+        }
+        display.textContent = calcDisplay;
+        console.log(e.target.parentNode.className);
+        console.log(e.target.id);
+        console.log(calcDisplay);
+        console.log(input);
+        console.log("a = ", a);
+        console.log("b = ", b);
     });
 });
-/*numB = digits.forEach((button) => {
-        button.addEventListener('click', (e) => {
-            console.log(e.target.textContent);
-            numB = e.target.textContent;
-            display.textContent = numB;
-            console.log("numB = ", numB);
-        });
-    });*/
-
-
-function getOperation() {
-    operators.forEach((button) => {
-        button.addEventListener('click', (e) => {
-            console.log(e.target.textContent);
-            operator = e.target.textContent;
-            display.textContent = operator;
-        });
-    });
-}
-
-
-
-// operator = getOperation();
 
 function operate() {
     let result = 0;
