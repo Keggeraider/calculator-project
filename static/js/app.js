@@ -1,7 +1,7 @@
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
-const multiply = (a,b) => a * b;
-const divide = (a,b) => a / b;
+const multiply = (a, b) => a * b;
+const divide = (a, b) => a / b;
 
 let input = [];
 let a = null;
@@ -25,24 +25,39 @@ buttons.forEach((button) => {
         } else if  (e.target.parentNode.className === "operators") {
             operator.push(e.target.textContent);
             if (a === null) {
-                a = input.shift();
-                while (input.length > 0) {
-                    a += input.shift();
+                if (input.length > 0) {
+                    a = input.shift();
+                    while (input.length > 0) {
+                        a += input.shift();
+                    }
                 }
+                calcDisplay = a;
             } else if (b === null) {
+                if (input.length > 0) {
+                    b = input.shift();
+                    while (input.length > 0) {
+                        b += input.shift()
+                    }
+                }
+                operate(parseFloat(a), parseFloat(b));
+                calcDisplay = result;
+                a = result;
+                b = null;
+            } 
+        } else if (e.target.id === "compute") {
+            if (a === null) {
+                calcDisplay = a;
+            } else if (b === null && input.length > 0) {
                 b = input.shift();
                 while (input.length > 0) {
                     b += input.shift()
                 }
-            } else if (a !== null && b !== null) {
-                operate();
+                operate(parseFloat(a), parseFloat(b));
                 calcDisplay = result;
                 a = result;
                 b = null;
             }
-        } else if (e.target.id === "compute") {
-            operate();
-            calcDisplay = result;
+            
         } else if (e.target.id === "ac"){
             a = null;
             b = null;
@@ -57,12 +72,14 @@ buttons.forEach((button) => {
         console.log(e.target.id);
         console.log(calcDisplay);
         console.log(input);
+        console.log(operator);
         console.log("a = ", a);
         console.log("b = ", b);
+        console.log(result);
     });
 });
 
-function operate() {
+function operate(a, b) {
     let symbol = operator.shift();
     if (symbol === "+") {
         result = add(a, b);
@@ -70,9 +87,7 @@ function operate() {
         result = subtract(a, b);
     } else if (symbol === "*") {
         result = multiply(a, b);
-    } else if (symbol === "&divide;") {
+    } else if (symbol === "÷") {
         result = divide(a, b);
     }
-
-    display.textContent = result;
 }
